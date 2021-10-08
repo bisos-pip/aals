@@ -106,12 +106,13 @@ G = icm.IcmGlobalContext()
 from blee.icmPlayer import bleep
 ####+END:
 
-# from bisos.icm import fp
+from bisos.icm import clsMethod
+from bisos.icm import fp
 
 from bisos.bpo import bpo
 from bisos.bpo import bpoFpBases
 
-from bisos.aals import aalsBpo
+#from bisos.aals import aalsBpo
 from bisos.aals import repoLiveParams
 
 AalsRepo_LiveParams_FPs = repoLiveParams.AalsRepo_LiveParams_FPs  # exec/eval-ed as __main__.ClassName
@@ -145,9 +146,11 @@ def g_paramsExtraSpecify(
     G = icm.IcmGlobalContext()
     icmParams = icm.ICM_ParamDict()
 
-    bpo.commonParamsSpecify(icmParams)
+    clsMethod.commonParamsSpecify(icmParams)  # --cls, --method
 
-    bpoFpBases.commonParamsSpecify(icmParams)
+    fp.commonParamsSpecify(icmParams)  # --fpBase
+
+    bpo.commonParamsSpecify(icmParams)
 
     AalsRepo_LiveParams_FPs.fps_asIcmParamsAdd(icmParams,)
 
@@ -186,6 +189,10 @@ class examples(icm.Cmnd):
         #def menuItem(): icm.ex_gCmndMenuItem(cmndName, cps, cmndArgs, verbosity='little')
         #def execLineEx(cmndStr): icm.ex_gExecMenuItem(execLine=cmndStr)
 
+        oneBpo = "pmi_ByD-100001"
+        thisClass = "AalsRepo_LiveParams"
+
+
         logControler = icm.LOG_Control()
         logControler.loggerSetLevel(20)
 
@@ -195,14 +202,10 @@ class examples(icm.Cmnd):
 
         bleep.examples_icmBasic()
 
-        icm.cmndExampleMenuChapter('*BPO Access And Management*')
-
-        bpo.examples_bpo_basicAccess()
-
-        icm.cmndExampleMenuChapter('*AALS-BPO parLive Access And Management*')
+        bpo.examples_bpo_basicAccess(oneBpo)
 
         # examples_parLive_basicAccess()
-        bpoFpBases.examples_aals_fpBases('oneBpo', 'oneCls')
+        bpoFpBases.examples_bpo_fpBases(oneBpo, thisClass)
 
         examples_parLive_basicAccess()
 
@@ -245,7 +248,7 @@ def examples_parLive_basicAccess():
 
     # moduleOverviewMenuItem(bpo_libOverview)
 
-    icm.cmndExampleMenuChapter(' =Bpo+Repo Info Base Roots=  *bpoSi Control Roots*')
+    icm.cmndExampleMenuChapter('=Misc=  *Facilities*')
 
     cmndName = "bpoSiFullPathBaseDir" ; cmndArgs = "" ;
     cps=cpsInit() ; cps['bpoId'] = oneBpo ; cps['repo'] = oneRepo
@@ -255,14 +258,9 @@ def examples_parLive_basicAccess():
     cps=cpsInit() ; cps['bpoId'] = oneBpo ; cps['repo'] = oneRepo ; cps['method'] = "echoArgs"
     menuItem(verbosity='little')
 
-    cmndName = "fpParamsList" ; cmndArgs = "" ;
-    cps=cpsInit() ; cps['bpoId'] = oneBpo ; cps['cls'] = thisClass
-    menuItem(verbosity='little')
+    icm.cmndExampleMenuChapter('=AalsRepo_LiveParams=  *Access And Management*')
 
-    cmndArgs = "basic" ; menuItem(verbosity='little')
-    cmndArgs = "setExamples getExamples" ; menuItem(verbosity='little')
-
-    cmndName = "fpParamsSet" ; cmndArgs = "" ;
+    cmndName = "bpoFpParamsSet" ; cmndArgs = "" ;
     cps=cpsInit() ; cps['bpoId'] = oneBpo ; cps['cls'] = thisClass
 
     cps['aalsPlatformBpoId'] = "thisBpoId"
@@ -283,12 +281,6 @@ def examples_parLive_basicAccess():
     cps['plone3Passwd'] = "PasswdForPlone3"
     menuItem(verbosity='little')
 
-    cmndName = "fpParamsRead" ; cmndArgs = "" ;
-    cps=cpsInit() ; cps['bpoId'] = oneBpo ; cps['cls'] = thisClass
-    menuItem(verbosity='little')
-
-    cmndArgs = "basic" ; menuItem(verbosity='little')
-    cmndArgs = "setExamples getExamples" ; menuItem(verbosity='little')
 
 
 ####+BEGIN: bx:icm:python:section :title "= =Framework::=   __main__ g_icmMain ="

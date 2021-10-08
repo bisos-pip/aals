@@ -119,13 +119,10 @@ from bisos.platform import bxPlatformConfig
 # from bisos.platform import bxPlatformThis
 
 from bisos.bpo import bpo
-# from bisos.aais import aaisBpo
-
 
 g_importedCmndsModules = [       # Enumerate modules from which CMNDs become invokable
     'blee.icmPlayer.bleep',
     'bisos.bpo.bpo',
-    # 'bisos.aais.aaisBpo',
 ]
 
 
